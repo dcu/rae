@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+# encoding: UTF-8
+#
+# http://koteo.lacoctelera.net
+
+require 'rubygems'
+require 'nokogiri'
+require 'mechanize'
+
+palabra = ARGV.first
+
+if !palabra
+  puts "Pon la palabra que deseas buscar en la web del rae:"
+  palabra = gets.chomp
+end
+
+agent = WWW::Mechanize.new
+agent.user_agent_alias = 'Mac Safari'
+page = agent.get 'http://buscon.rae.es/draeI/html/cabecera.htm'
+
+form = page.forms.first
+
+form['TIPO_BUS'] = '3'
+form['LEMA'] = palabra
+
+page = agent.submit(form, form.buttons.first)
+
+read_doc = Nokogiri::HTML(page.body)
+read_doc.css('p').each do |l|
+  puts l.content.to_s.strip
+end
