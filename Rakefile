@@ -5,23 +5,21 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rae"
-    gem.summary = %Q{CLI to access the rae.es}
-    gem.description = %Q{CLI to access the rae.es}
-    gem.email = "koldo.oteo1@gmail.com"
-    gem.homepage = "http://koteo.lacoctelera.net/post/2009/11/18/acceder-al-diccionario-la-rae-con-ruby"
-    gem.authors = ["Koldo Oteo"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
-
-    gem.add_dependency('mechanize', '>= 0.9.3')
-    gem.add_dependency('nokogiri', '>= 1.3.3')
+    gem.summary = %Q{library to access the rae.es}
+    gem.description = %Q{library to access the rae.es}
+    gem.email = "krawek@gmail.com"
+    gem.homepage = "http://github.com/dcu/rae"
+    gem.authors = ["David A. Cuadrado", "Koldo Oteo"]
+    gem.add_dependency "mechanize", ">= 1.0.0"
   end
+  Jeweler::GemcutterTasks.new
 rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
+  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
-  test.libs << 'test'
+  test.libs << 'lib' << 'test'
   test.pattern = 'test/**/test_*.rb'
   test.verbose = true
 end
@@ -50,4 +48,5 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "rae #{version}"
   rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('lib/**/*.rb')
 end
